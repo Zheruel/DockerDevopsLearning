@@ -10,5 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Build the Stack
+      run: docker-compose up -d
+    - name: Test
+      run: curl -d "test" "localhost:8081"
