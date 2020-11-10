@@ -13,4 +13,4 @@ jobs:
     - name: Build the Stack
       run: docker-compose up -d
     - name: Test
-      run: curl -d "test" "localhost:8081"
+      run: curl -d "test" localhost:8081
