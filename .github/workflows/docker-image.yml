@@ -12,5 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Stack
       run: docker-compose up -d
-    - name: Test
-      run: docker run --network container:service1/curl -d "test" http://localhost:8081/
+    - name: Test service 1
+      run: curl -d "md5" localhost:8080
+    - name: Test service 2
+      run: curl -d "test" localhost:8081
