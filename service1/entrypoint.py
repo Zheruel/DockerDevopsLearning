@@ -8,4 +8,4 @@ message = '\n'.join(inp[1:]).strip()
 h = hashlib.new(hash_func)
 h.update(str.encode(message))
 
-print h.hexdigest()
+print(h.hexdigest())

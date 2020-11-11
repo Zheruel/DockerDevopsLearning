@@ -7,6 +7,7 @@ services:
       - "8080:8080"
     networks:
       - default
+    image: tinzeljar/service1
   
   service2:
     build: ./service2
@@ -14,6 +15,7 @@ services:
       - "8081:8080"
     networks:
       - default
+    image: tinzeljar/service2
 
 networks:
   default:
