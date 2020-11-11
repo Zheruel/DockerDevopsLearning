@@ -19,10 +19,5 @@ jobs:
     - name: Test service 2
       run: curl -d "test" localhost:8081
       
-  push:
-    runs-on: ubuntu-latest
-    needs: test
-    
-    steps:
-      - name: Push
-        run: docker-compose push
+    - name: Push
+      run: docker-compose push
