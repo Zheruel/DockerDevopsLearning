@@ -1,0 +1,48 @@
+1. Servisi
+service1 -> radi tako da primi hashlib input + poruku koju hashira npr (md5, "test")
+i vraca kodiranu poruku
+
+service2 -> Prima poruku i defaulta se na md5 tip hashiranja. Koristenjem requests modula salje data na
+service1:8080 -> odnosno na prvi servis
+
+test.py -> sluzi za testiranje, salje poruku sa ocekivanim odgovorom na "http://service2:8080"
+
+2. docker-compose.yml
+Sluzi kako bi mogao buildati oba servisa na temelju dockerfileova iz foldera.
+Oba servisa se nalaze u istoj mrezi kako bi mogla medusobno komunicirati
+
+3. docker-compose.test.yml
+Sluzi za testiranje. Gradi unutar iste mreze oba servisa i skriptu koja ih testira.
+
+4. docker-deploy.yml
+Uzima najnovije imageove sa dockerhuba i pomocu njih gradi aplikaciju. Naravno servisi su opet unutar iste mreze.
+Ovdje je bitna razlika to sto povlaci image-ove sa dockerhuba. Poanta je da na dockerhub sa githuba image dospije jedino ako
+je prije toga buildan i testiran kako bi se smanjila sansa da se putem automatskog deploya strga aplikacija na serveru.
+
+5. Github akcija.
+step 1 ->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Deploy na server
+
+docker swarm init -> pokrenuo sam kubernetes swarm
+
+docker stack deploy --compose-file docker-compose.yml avlstack
+-> deployam compose file 
+
+komanda docker stack services avlstack da potvrdim valjanost servisa
+-> u cmd curl -d "test" localhost:8081 -> potvrda da je deploy uspjesan i da mi radi kubernetes
+
+u idealnom slucaju na pravom projektu bi radio github -> aws ili slcino, ovdje radim lokalne kubernetes komande
