@@ -10,6 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       
-    - name: Build the Stack
+    - name: Build
       run: docker-compose -f docker-compose.test.yml build
+
+    - name: Run sut
       run: docker-compose -f docker-compose.test.yml run sut
