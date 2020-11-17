@@ -1,7 +1,9 @@
-FROM python:latest
+FROM ubuntu:trusty
 
-COPY test.py /
+RUN apt-get update && apt-get install -yq curl && apt-get clean
 
-RUN pip install requests
+WORKDIR /app
 
-CMD [ "python", "test.py" ]
+ADD test.sh /app/test.sh
+
+CMD ["bash", "test.sh"]
