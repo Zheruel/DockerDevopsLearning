@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   service1:
+    build: ./service1
     ports:
       - "8080:8080"
     networks:
@@ -9,6 +10,7 @@ services:
     image: tinzeljar/service1:latest
   
   service2:
+    build: ./service2
     ports:
       - "8081:8080"
     networks:
