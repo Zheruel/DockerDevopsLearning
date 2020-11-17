@@ -6,6 +6,7 @@ services:
     networks: 
       - default
     links:
+      - service1
       - service2
 
   service1:
