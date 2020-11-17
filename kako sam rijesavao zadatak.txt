@@ -5,7 +5,7 @@ i vraca kodiranu poruku
 service2 -> Prima poruku i defaulta se na md5 tip hashiranja. Koristenjem requests modula salje data na
 service1:8080 -> odnosno na prvi servis
 
-test.py -> sluzi za testiranje, salje poruku sa ocekivanim odgovorom na "http://service2:8080"
+test.sh -> sluzi za testiranje, salje poruku sa ocekivanim odgovorom na "http://service2:8080"
 
 2. docker-compose.yml
 Sluzi kako bi mogao buildati oba servisa na temelju dockerfileova iz foldera.
@@ -19,30 +19,25 @@ Uzima najnovije imageove sa dockerhuba i pomocu njih gradi aplikaciju. Naravno s
 Ovdje je bitna razlika to sto povlaci image-ove sa dockerhuba. Poanta je da na dockerhub sa githuba image dospije jedino ako
 je prije toga buildan i testiran kako bi se smanjila sansa da se putem automatskog deploya strga aplikacija na serveru.
 
-5. Github akcija.
-step 1 ->
+5. Workflow -> .github/workflows/docker-image.yml
 
+Step 1 -> builda docker-compose.test.yml
+Step 2 -> runa test.sh i ako prolazi idemo dalje
+Step 3 -> builda compose file
+Step 4 -> login na dockerhub
+Step 5 -> pusha nove imageove na dockerhub
 
-
-
-
-
-
-
-
-
-
-
-
-
-4. Deploy na server
+6. Deploy na server
 
 docker swarm init -> pokrenuo sam kubernetes swarm
 
-docker stack deploy --compose-file docker-compose.yml avlstack
+docker stack deploy --compose-file docker-deploy.yml avlstack
 -> deployam compose file 
 
 komanda docker stack services avlstack da potvrdim valjanost servisa
 -> u cmd curl -d "test" localhost:8081 -> potvrda da je deploy uspjesan i da mi radi kubernetes
 
-u idealnom slucaju na pravom projektu bi radio github -> aws ili slcino, ovdje radim lokalne kubernetes komande
+u idealnom slucaju na pravom projektu bi radio github -> aws ili slicno, ovdje radim lokalne kubernetes komande
+
+Recimo da imam svoj server za CI trebam koristiti neki webhook koji ce mi poslati info svaki put kada se :latest image za servis
+update-a na dockerhubu. U tom slucaju moram napraviti rollout koji ce updateati servise unutar kubernetes clustera.
