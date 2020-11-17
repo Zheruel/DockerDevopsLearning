@@ -41,3 +41,15 @@ u idealnom slucaju na pravom projektu bi radio github -> aws ili slicno, ovdje r
 
 Recimo da imam svoj server za CI trebam koristiti neki webhook koji ce mi poslati info svaki put kada se :latest image za servis
 update-a na dockerhubu. U tom slucaju moram napraviti rollout koji ce updateati servise unutar kubernetes clustera.
+
+Moja ideja za ovaj workflow je ukratko:
+-> Developer radi push na Git
+-> Git runa compose-test.yml
+-> Ako test prolazi, gradi se docker-compose.yml i updateaju se imageovi na dockerhubu
+-> imamo neki server koji na sebi ima cluster napravljen putem docker-deploy.yml
+-> svaki put kada se DockerHub imageovi updateaju webhook salje zahtjev prema serveru, server radi rolling update
+nad svojim servisima sa novim image:latest
+-> tako sam dobio solidan CI/CD pipeline u kojeg mogu ukljuciti bilo koje testove, npr mogu raditi python testove umjesto 
+ove .sh skripte jer github actions gleda samo na exit 0 ili exit 1 kad se radi docker run
+-> cluster se moze scale upati, moze se lagano raditi rolling update sa imageovima za koje smo sigurno da su dobri jer su morali
+proci testove prije nego dodu na DockerHub
