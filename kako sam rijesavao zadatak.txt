@@ -53,3 +53,4 @@ nad svojim servisima sa novim image:latest
 ove .sh skripte jer github actions gleda samo na exit 0 ili exit 1 kad se radi docker run
 -> cluster se moze scale upati, moze se lagano raditi rolling update sa imageovima za koje smo sigurno da su dobri jer su morali
 proci testove prije nego dodu na DockerHub
+2323
